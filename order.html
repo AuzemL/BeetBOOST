@@ -3,389 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order BeetBOOST - Dairy-Free Beetroot Yogurt</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Order BeetBOOST | Fast Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-burgundy: #8B1538;
-            --vibrant-magenta: #C41E3A;
-            --soft-rose: #E8B4CB;
-            --earthy-cream: #F5F2E8;
-            --pure-white: #FFFFFF;
-            --text-dark: #2C2C2C;
-            --text-light: #666666;
+            --primary: #8B1538;
+            --secondary: #C41E3A;
+            --accent: #E8B4CB;
+            --bg: #FDFBF7;
+            --text: #2C2C2C;
         }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--earthy-cream) 0%, var(--soft-rose) 100%);
-            color: var(--text-dark);
-            min-height: 100vh;
-            overflow-x: hidden;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        nav {
+            position: sticky; top: 0; width: 100%; padding: 1.2rem 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 21, 56, 0.1);
         }
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(139, 21, 56, 0.05);
+        .nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); text-decoration: none; font-weight: 700; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; }
+
+        .checkout-container { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; }
+        .checkout-header { grid-column: 1 / -1; margin-bottom: 2rem; }
+        .checkout-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); }
+
+        .order-form { background: white; padding: 3rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .form-section { margin-bottom: 2rem; }
+        .form-section h3 { margin-bottom: 1.5rem; color: var(--primary); border-bottom: 2px solid var(--accent); display: inline-block; }
+        
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        input, select { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem; }
+
+        .summary-card { background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); height: fit-content; position: sticky; top: 120px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+        .total-row { border-top: 2px solid #eee; padding-top: 1rem; margin-top: 1rem; font-weight: 700; font-size: 1.4rem; color: var(--primary); }
+
+        .checkout-btn { width: 100%; padding: 1.2rem; background: var(--primary); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 2rem; }
+        .checkout-btn:hover { background: var(--secondary); transform: translateY(-3px); }
+
+        @media (max-width: 968px) {
+            .checkout-container { grid-template-columns: 1fr; }
         }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-burgundy);
-            text-decoration: none;
-        }
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: var(--vibrant-magenta);
-        }
-        .cta-button {
-            background: linear-gradient(135deg, var(--vibrant-magenta), var(--primary-burgundy));
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
-            background: linear-gradient(135deg, #d63456, var(--primary-burgundy));
-        }
-        @media (max-width: 900px) {
-            .nav-container {
-                padding: 0 1rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-        }
-        .container {
-            max-width: 900px;
-            margin: 6rem auto 3rem auto;
-            padding: 0 2rem;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-burgundy);
-            margin-bottom: 2rem;
-        }
-        .order-header-flex {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-bottom: 2.2rem;
-        }
-        .beetroot-character {
-            flex: 0 0 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        .beetroot-character svg {
-            width: 90px;
-            height: 110px;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0px);}
-            50% { transform: translateY(-10px);}
-        }
-        .order-form {
-            background: var(--pure-white);
-            border-radius: 20px;
-            padding: 2.5rem 3rem;
-            box-shadow: 0 6px 24px rgba(139, 21, 56, 0.08);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        .product-selection {
-            flex: 1 1 300px;
-            min-width: 280px;
-        }
-        .product-selection label {
-            display: block;
-            font-weight: 600;
-            color: var(--primary-burgundy);
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        .product-selection select {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            border-radius: 10px;
-            border: 1.5px solid var(--soft-rose);
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-dark);
-            background: var(--earthy-cream);
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-        }
-        .product-selection select:hover,
-        .product-selection select:focus {
-            border-color: var(--vibrant-magenta);
-            outline: none;
-        }
-        .pack-size {
-            margin-top: 1.5rem;
-        }
-        .pack-size label {
-            font-weight: 600;
-            color: var(--primary-burgundy);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .pack-size select {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            border-radius: 10px;
-            border: 1.5px solid var(--soft-rose);
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-dark);
-            background: var(--earthy-cream);
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-        }
-        .pack-size select:hover,
-        .pack-size select:focus {
-            border-color: var(--vibrant-magenta);
-            outline: none;
-        }
-        .package-image {
-            flex: 1 1 300px;
-            min-width: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .package-image img {
-            max-width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 6px 24px rgba(139, 21, 56, 0.08);
-        }
-        .order-button {
-            display: block;
-            margin: 3rem auto 0 auto;
-            background: linear-gradient(135deg, var(--vibrant-magenta), var(--primary-burgundy));
-            color: white;
-            padding: 1.2rem 3rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .order-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px rgba(196, 30, 58, 0.4);
-        }
-        .order-success {
-            background: #d9f5e3;
-            color: #38804A;
-            border-radius: 7px;
-            padding: 1rem;
-            margin-top: 1.2rem;
-            text-align: center;
-            font-weight: 600;
-            animation: fadeInUp 0.7s;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .order-form {
-                flex-direction: column;
-                padding: 2rem 1.5rem;
-            }
-            .package-image {
-                margin-top: 2rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 1.5rem 0.4rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .order-form {
-                padding: 1.3rem 0.5rem;
-            }
-            .beetroot-character svg {
-                width: 60px;
-                height: 70px;
-            }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        /* Social proof notification */
-        .social-proof {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--pure-white);
-            border-left: 4px solid var(--vibrant-magenta);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 999;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        .social-proof.show {
-            transform: translateX(0);
-        }
-        .social-proof-text {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            margin: 0;
-        }
+
+        footer { padding: 4rem 0 2rem; text-align: center; color: #888; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
+    <nav>
+        <div class="nav-content">
             <a href="index.html" class="logo">BeetBOOST</a>
-            <ul class="nav-menu">
-                <li><a href="index.html#home" class="nav-link">Home</a></li>
-                <li><a href="index.html#products" class="nav-link">Products</a></li>
-                <li><a href="index.html#benefits" class="nav-link">Benefits</a></li>
-                <li><a href="Review.html" class="nav-link">Reviews</a></li>
-                <li><a href="vision.html" class="nav-link">Our Vision</a></li>
-                <li><a href="why.html" class="nav-link">Why Beetroot ?</a></li>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="why.html">Science</a></li>
+                <li><a href="vision.html">Vision</a></li>
+                <li><a href="Review.html">Reviews</a></li>
             </ul>
-            <a href="order.html" class="cta-button" style="pointer-events:none;opacity:0.7;">Order Now</a>
+            <a href="order.html" style="background:var(--primary); color:white; padding:0.6rem 1.4rem; border-radius:50px; text-decoration:none; font-weight:600">Order Now</a>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="order-header-flex">
-            <h2 class="section-title">Order Your BeetBOOST</h2>
-            <div class="beetroot-character">
-                <svg viewBox="0 0 140 170" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cute Beetroot Character">
-                    <ellipse cx="70" cy="100" rx="48" ry="60" fill="#C41E3A" stroke="#8B1538" stroke-width="4"/>
-                    <ellipse cx="70" cy="120" rx="22" ry="18" fill="#fff" opacity="0.15"/>
-                    <path d="M60 122 Q70 130 80 122" stroke="#8B1538" stroke-width="3" fill="none" stroke-linecap="round"/>
-                    <ellipse cx="58" cy="115" rx="4" ry="6" fill="#2C2C2C"/>
-                    <ellipse cx="82" cy="115" rx="4" ry="6" fill="#2C2C2C"/>
-                    <ellipse cx="52" cy="125" rx="4" ry="2" fill="#E8B4CB"/>
-                    <ellipse cx="88" cy="125" rx="4" ry="2" fill="#E8B4CB"/>
-                    <path d="M70 45 Q60 25 80 15 Q90 10 85 30 Q80 50 70 45 Z" fill="#4A7C59" stroke="#38804A" stroke-width="2"/>
-                    <path d="M70 45 Q90 25 110 30 Q120 35 105 50 Q90 65 70 45 Z" fill="#6FCF97" stroke="#38804A" stroke-width="2"/>
-                    <path d="M70 45 Q50 25 30 40 Q20 50 45 60 Q65 70 70 45 Z" fill="#4A7C59" stroke="#38804A" stroke-width="2"/>
-                    <path d="M22 130 Q10 140 30 150" stroke="#8B1538" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    <path d="M118 130 Q130 140 110 150" stroke="#8B1538" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    <ellipse cx="28" cy="152" rx="5" ry="3" fill="#C41E3A"/>
-                    <ellipse cx="112" cy="152" rx="5" ry="3" fill="#C41E3A"/>
-                    <ellipse cx="85" cy="90" rx="9" ry="18" fill="#fff" opacity="0.13"/>
-                </svg>
-            </div>
+    <main class="checkout-container">
+        <div class="checkout-header">
+            <h1>Complete your order.</h1>
         </div>
-        <form class="order-form" id="orderForm">
-            <div class="product-selection">
-                <label for="productSelect">Select Product</label>
-                <select id="productSelect" name="product">
-                    <option value="Original BeetBOOST">Original BeetBOOST</option>
-                    <option value="Chunky BeetBOOST">Chunky BeetBOOST</option>
-                </select>
-                <div class="pack-size">
-                    <label for="packSizeSelect">Select Pack Size</label>
-                    <select id="packSizeSelect" name="packSize">
-                        <option value="4x200g">4 pack of 200g</option>
-                        <option value="6x200g">6 pack of 200g</option>
-                        <option value="1x500g">1 tub of 500g</option>
+
+        <div class="order-form">
+            <div class="form-section">
+                <h3>1. Product Selection</h3>
+                <div class="input-group">
+                    <label>Select Variety</label>
+                    <select id="variety">
+                        <option>Original BeetBOOST (4x200g)</option>
+                        <option>Chunky BeetBOOST (4x200g)</option>
+                        <option>Variety Pack (2 of each)</option>
                     </select>
                 </div>
+                <div class="input-group">
+                    <label>Quantity</label>
+                    <input type="number" value="1" min="1">
+                </div>
             </div>
-            <div class="package-image">
-                <img src="package.jpg" alt="BeetBOOST Packaging">
+
+            <div class="form-section">
+                <h3>2. Shipping Details</h3>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>Shipping Address</label>
+                    <input type="text" placeholder="123 St, Perth WA">
+                </div>
             </div>
-            <button type="submit" class="order-button">Buy Now</button>
-        </form>
-        <div class="order-success" id="orderSuccess"></div>
-    </div>
+        </div>
 
-    <!-- Social Proof Notification -->
-    <div class="social-proof" id="socialProof">
-        <p class="social-proof-text">🛒 <strong>Emma from Perth</strong> just placed an order!</p>
-    </div>
+        <div class="summary-card">
+            <h3>Order Summary</h3>
+            <div style="margin-top:2rem">
+                <div class="summary-row">
+                    <span>Original BeetBOOST x 1</span>
+                    <span>$24.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span style="color:#38804A">FREE</span>
+                </div>
+                <div class="total-row summary-row">
+                    <span>Total</span>
+                    <span>$24.00</span>
+                </div>
+                <button class="checkout-btn">Place Order</button>
+                <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:1rem">Secure checkout powered by Stripe</p>
+            </div>
+        </div>
+    </main>
 
-    <script>
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const product = document.getElementById('productSelect').value;
-            const packSize = document.getElementById('packSizeSelect').value;
-            const msg = `Thank you for your order!<br><strong>Product:</strong> ${product}<br><strong>Pack Size:</strong> ${packSize}`;
-            const successDiv = document.getElementById('orderSuccess');
-            successDiv.innerHTML = msg;
-            successDiv.style.display = 'block';
-            setTimeout(() => { successDiv.style.display = 'none'; }, 6000);
-        });
-
-        // Social proof notifications
-        const socialProofMessages = [
-            "🛒 <strong>Emma from Perth</strong> just placed an order!",
-            "✨ <strong>Mike from Sydney</strong> ordered 6x200g Chunky BeetBOOST!",
-            "🎉 <strong>Sarah from Melbourne</strong> bought 4x200g Original BeetBOOST!",
-            "💚 <strong>David from Brisbane</strong> loves our 500g tubs!"
-        ];
-        function showSocialProof() {
-            const socialProof = document.getElementById('socialProof');
-            const randomMessage = socialProofMessages[Math.floor(Math.random() * socialProofMessages.length)];
-            socialProof.querySelector('.social-proof-text').innerHTML = randomMessage;
-            socialProof.classList.add('show');
-            setTimeout(() => {
-                socialProof.classList.remove('show');
-            }, 4000);
-        }
-        setInterval(showSocialProof, 15000);
-        setTimeout(showSocialProof, 2000);
-    </script>
+    <footer>
+        <p>&copy; 2026 BeetBOOST. All rights reserved.</p>
+    </footer>
 </body>
 </html>
